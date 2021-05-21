@@ -1,0 +1,14 @@
+.dork {
+  color: red;
+  text-align: center;
+  font-size: 500px;
+}
+
+#list {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  max-height: 2000px;
+  max-width: auto;
+  margin: 10px;
+}
