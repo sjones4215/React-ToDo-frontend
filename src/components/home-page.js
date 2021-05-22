@@ -1,15 +1,31 @@
 import React, { useEffect, useState} from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Spinner } from 'react-bootstrap';
 import '../styles/home-page.css'
 import {getProducts} from '../services/CarsDataService';
 ;
 
 const HomePage = () => {
 const [cars, setCars] = useState([{carsArray:[]}])
+const [error, setError] = useState(null)
+const [loading, setLoading] = useState(null)
 
 useEffect(() => {
-  getProducts(cars).then((res) => {setCars(res)});
+  async function init() { 
+  try {  
+    getProducts(cars).then((res) => {setCars(res)});
+  } 
+  catch (e) {
+    if (e) {
+      setError(e)
+    }}
+    finally {
+      setLoading(false)
+    }
+  }
+  init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
+
 
 
 function renderCars(c) {
@@ -32,6 +48,8 @@ function renderCars(c) {
 }
 
 const carDataArray = cars
+if (error) throw error;
+if (loading === true) return <Spinner />
 
 return (
   <>
@@ -39,26 +57,7 @@ return (
       {carDataArray.map(renderCars)}
     </div>
   </>
-//   <div>
-//     <Card 
-//     bg="light"
-//     className="card"
-//     text="dark"
-//     style={{ width: '50rem', height: 'auto' }}
-//     >
-//     <Card.Header>Welcome</Card.Header>
-//     <Card.Body>
-//       {cars.map()}
-//       <Card.Text>
-//         To begin adding click the button below
-//       </Card.Text>
-//     </Card.Body>
-//   </Card>
-//   <Button onClick={() => {
-//     if (count < 10) { setCount(count + 1)}
-//   }}>{count}</Button>
-// </div>
-  );
-};
+  )
+}
 
 export default HomePage;

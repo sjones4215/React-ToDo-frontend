@@ -4,7 +4,6 @@ import {Nav} from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import HomePageModal from './home-page-modal'
 import ListPageModal from './ListPageModal'
-import HomePage from './home-page';
 
 
 
@@ -23,7 +22,7 @@ useEffect(() => {
   } else {
     setOnList(false)
   }
-}, [])
+}, [pathname])
   
 return (
 <Navbar bg="primary" variant="dark">
